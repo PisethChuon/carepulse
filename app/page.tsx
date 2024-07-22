@@ -2,7 +2,19 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div>
-      <h1 className="text-3xl underline">Hello World</h1>
-    </div>  );
+    <div className="flex h-screen max-h-screen">
+      <section className="remove-scrollbar container my-auto">
+        <div className="sub-container max-w-[496px]">
+          <Image
+            src="assets/icons/logo-full.svg"
+            height={1000}
+            width={1000}
+            alt="patient"
+            className="mg-12 h-10 w-fit"
+          />
+          <button>Click me</button>
+        </div>
+      </section>
+    </div>
+  );
 }
