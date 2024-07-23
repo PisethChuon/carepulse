@@ -12,7 +12,6 @@ export default function Home() {
             alt="patient"
             className="mg-12 h-10 w-fit"
           />
-          <button>Click me</button>
         </div>
       </section>
     </div>
