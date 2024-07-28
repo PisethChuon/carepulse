@@ -11,6 +11,7 @@ import { useState } from "react";
 import { UserFormValidation } from "@/lib/validation";
 import { error } from "console";
 import { useRouter } from "next/navigation";
+import { createUser } from "@/lib/actions/patient.actions";
 
 
 export enum FormFieldType {
@@ -40,10 +41,10 @@ const PatientForm = () => {
   async function onSubmit({name, email, phone}: z.infer<typeof UserFormValidation>) {
     setIsLoading(true);
     try {
-      // const userData = {name, email, phone};
-      // const user = await createUser(userData);
+      const userData = {name, email, phone};
+      const user = await createUser(userData);
 
-      // if(user) router.push(`/patients/${user.$id}/register`)
+      if(user) router.push(`/patients/${user.$id}/register`)
       
     } catch (error) {
       console.log(error);
