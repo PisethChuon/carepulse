@@ -18,19 +18,20 @@ import { E164Number } from "libphonenumber-js/core";
 
 interface CustomProps {
   control: Control<any>;
-  fieldType: FormFieldType;
   name: string;
   label?: string;
   placeholder?: string;
   iconSrc?: string;
   iconAlt?: string;
   disabled?: boolean;
-  dateFormate?: string;
+  dateFormat?: string;
   showTimeSelect?: boolean;
   children?: React.ReactNode;
+  renderSkeleton?: (field: any) => React.ReactNode;
+  fieldType: FormFieldType;
 }
 
-const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
+const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
   const { fieldType, iconSrc, iconAlt, placeholder } = props;
   switch (fieldType) {
     case FormFieldType.INPUT:
@@ -74,17 +75,19 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
 };
 
 const CustomFormField = (props: CustomProps) => {
-  const { control, fieldType, name, label } = props;
+  const { control, name, label } = props;
+
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
         <FormItem className="flex-1">
-          {fieldType !== FormFieldType.CHECKBOX && label && (
-            <FormLabel>{label}</FormLabel>
+          {props.fieldType !== FormFieldType.CHECKBOX && label && (
+            <FormLabel className="shad-input-label">{label}</FormLabel>
           )}
-          <RenderField field={field} props={props} />
+          <RenderInput field={field} props={props} />
+
           <FormMessage className="shad-error" />
         </FormItem>
       )}

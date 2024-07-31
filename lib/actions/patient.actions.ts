@@ -12,9 +12,10 @@ export const createUser = async (user: CreateUserParams) => {
     );
   } catch (error: any) {
     if (error && error?.code === 409) {
-      const documents = await users.list([Query.equal("email", [user.email])]);
+      const documents = await users.list([Query.equal('email', [user.email])]);
 
       return documents?.users[0];
     }
   }
 };
+ 
