@@ -12,18 +12,19 @@ import { UserFormValidation } from "@/lib/validation";
 // import { error } from "console";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
+import { FormFieldType } from "./PatientForm";
 
-export enum FormFieldType {
-  INPUT = "input",
-  TEXTAREA = "textarea",
-  PHONE_INPUT = "phoneInput",
-  CHECKBOX = "checkbox",
-  DATE_PICKER = "dataPicker",
-  SELECT = "select",
-  SKELETION = "skeleton",
-}
+// export enum FormFieldType {
+//   INPUT = "input",
+//   TEXTAREA = "textarea",
+//   PHONE_INPUT = "phoneInput",
+//   CHECKBOX = "checkbox",
+//   DATE_PICKER = "dataPicker",
+//   SELECT = "select",
+//   SKELETION = "skeleton",
+// }
 
-const RegisterForm = () => {
+const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof UserFormValidation>>({
@@ -45,17 +46,26 @@ const RegisterForm = () => {
       const userData = { name, email, phone };
       const user = await createUser(userData);
 
-      if (user) router.push('/patients/${user.$id}/register');
+      if (user) router.push("/patients/${user.$id}/register");
     } catch (error) {
       console.log(error);
     }
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <section className="mb-12 space-y-4">
-          <h1 className="header">Hi there 👋</h1>
-          <p className="text-dark-700">Schedule your first appointment.</p>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-12 flex-1"
+      >
+        <section className="space-y-4">
+          <h1 className="header">Welcome 👋</h1>
+          <p className="text-dark-700">Let us know more about yourself.</p>
+        </section>
+
+        <section className="space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Personal Information</h2>
+          </div>
         </section>
 
         {/*Form Field */}
@@ -67,24 +77,6 @@ const RegisterForm = () => {
           placeholder="Piseth Chuon"
           iconSrc="/assets/icons/user.svg"
           iconAlt="user"
-        />
-        {/* Emial Field */}
-        <CustomFormField
-          fieldType={FormFieldType.INPUT}
-          control={form.control}
-          name="email"
-          label="Email"
-          placeholder="pisethchuon@gmail.com"
-          iconSrc="/assets/icons/email.svg"
-          iconAlt="user"
-        />
-        {/* Phone Field */}
-        <CustomFormField
-          fieldType={FormFieldType.PHONE_INPUT}
-          control={form.control}
-          name="phone"
-          label="Phone number"
-          placeholder="(+885 123-456)"
         />
         <SubmitButton isLoading={isLoading}>Get Start</SubmitButton>
       </form>
