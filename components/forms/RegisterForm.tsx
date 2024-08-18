@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 // import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import { Form, FormControl } from "@/components/ui/form";
 import CustomFormField from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { useState } from "react";
@@ -13,6 +13,7 @@ import { UserFormValidation } from "@/lib/validation";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
 import { FormFieldType } from "./PatientForm";
+import { RadioGroup } from "@radix-ui/react-radio-group";
 
 // export enum FormFieldType {
 //   INPUT = "input",
@@ -73,11 +74,57 @@ const RegisterForm = ({ user }: { user: User }) => {
           fieldType={FormFieldType.INPUT}
           control={form.control}
           name="name"
-          label="Full name"
+          label="Full Name "
           placeholder="Piseth Chuon"
           iconSrc="/assets/icons/user.svg"
           iconAlt="user"
         />
+
+        <div className="flex flex-col gap-6 xl:flex-row">
+          {/* Emial Field */}
+          <CustomFormField
+            fieldType={FormFieldType.INPUT}
+            control={form.control}
+            name="email"
+            label="Email"
+            placeholder="pisethchuon@gmail.com"
+            iconSrc="/assets/icons/email.svg"
+            iconAlt="user"
+          />
+          {/* Phone Field */}
+          <CustomFormField
+            fieldType={FormFieldType.PHONE_INPUT}
+            control={form.control}
+            name="phone"
+            label="Phone number"
+            placeholder="(+885 123-456)"
+          />
+        </div>
+
+        <div className="flex flex-col gap-6 xl:flex-row">
+        <CustomFormField
+            fieldType={FormFieldType.DATE_PICKER}
+            control={form.control}
+            name="birthDate"
+            label="Date of Birth"
+            
+          />
+          
+          <CustomFormField
+            fieldType={FormFieldType.SKELETION}
+            control={form.control}
+            name="gender"
+            label="Gender"
+            renderSkeleton={(field) => (
+              <FormControl>
+                <RadioGroup>
+                  
+                </RadioGroup>
+              </FormControl>
+            )}
+          />
+        </div>
+
         <SubmitButton isLoading={isLoading}>Get Start</SubmitButton>
       </form>
     </Form>
