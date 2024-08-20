@@ -118,7 +118,7 @@ const RegisterForm = ({ user }: { user: User }) => {
             renderSkeleton={(field) => (
               <FormControl>
                 <RadioGroup>
-                  
+                      
                 </RadioGroup>
               </FormControl>
             )}
