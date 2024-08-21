@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
 import { FormFieldType } from "./PatientForm";
 import { RadioGroup } from "@radix-ui/react-radio-group";
+import { GenderOptions } from "../constants";
+import { Label } from "@radix-ui/react-label";
 
 // export enum FormFieldType {
 //   INPUT = "input",
@@ -102,14 +104,13 @@ const RegisterForm = ({ user }: { user: User }) => {
         </div>
 
         <div className="flex flex-col gap-6 xl:flex-row">
-        <CustomFormField
+          <CustomFormField
             fieldType={FormFieldType.DATE_PICKER}
             control={form.control}
             name="birthDate"
             label="Date of Birth"
-            
           />
-          
+
           <CustomFormField
             fieldType={FormFieldType.SKELETION}
             control={form.control}
@@ -117,10 +118,19 @@ const RegisterForm = ({ user }: { user: User }) => {
             label="Gender"
             renderSkeleton={(field) => (
               <FormControl>
-                <RadioGroup className="flex h-11 gap-6 xl:justify-between"
-                onValueChange={field.onChange}
-                defaultValue={field.value}>
-                      {}
+                <RadioGroup
+                  className="flex h-11 gap-6 xl:justify-between"
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  {GenderOptions.map((option) => (
+                    <div key={option} className="radio-group">
+                      <RadioGroup value={option} is={option} />
+                      <Label htmlFor={option} className="cursor-pointer">
+                        {option}
+                      </Label>
+                    </div>
+                  ))}
                 </RadioGroup>
               </FormControl>
             )}
