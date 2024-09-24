@@ -36,7 +36,6 @@ interface CustomProps {
 const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
   const {
     fieldType,
-    
     iconSrc,
     iconAlt,
     placeholder,
